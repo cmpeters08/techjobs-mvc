@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +23,23 @@ public class SearchController {
         return "search";
     }
 
+    //requestmapping is the route to the file to use for the handler
+    @RequestMapping(value = "/search")
+    public String results(Model model,
+                          @RequestParam String searchType, @RequestParam String searchTerm){
+        ArrayList<HashMap<String, String>> searchResults = JobData.findByValue(searchTerm);
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchResults", searchResults);
+        return "/search/results";
+
+    }
+
+
+
     // TODO #1 - Create handler to process search request and display results
+
+
 
 }
