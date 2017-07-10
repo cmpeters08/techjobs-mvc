@@ -37,9 +37,13 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
-    <table class="job-listing">
-        <tr>
-        <td th:each="searchTerm : ${searchResults}" th:text="${searchTerm}"></td>
+    <table class="job-listing" th:each="aJob : ${jobs}">
+        <tr th:each="item : ${aJob.keySet()}">
+            <td th:text="${#strings.capitalizeWords(item)}"></td>
+            <!-- #strings.capitalizeWords(key) capitalaize the first letter of each "key" word -->
+            <td th:text="${aJob.get(item)}"></td>
+            <!--aJob.get(key) gets the data to be displayed -->
+       <!-- <td th:each="searchTerm : ${jobs}" th:text="${searchTerm}"></td> -->
         </tr>
     </table>
 
